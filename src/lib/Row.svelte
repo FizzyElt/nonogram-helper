@@ -1,7 +1,5 @@
 <script lang="ts">
-	import { css, cva, cx } from "../../styled-system/css";
-	import { grid, square } from "../../styled-system/patterns";
-	import Square from "./Square.svelte";
+	import { clsx } from "clsx";
 	interface RowProps {
 		clues: boolean[];
 	}
@@ -10,23 +8,14 @@
 </script>
 
 {#if clues.length > 0}
-	<div
-		class={grid({
-			width: "fit-content",
-			gridAutoColumns: "1fr",
-			gridAutoFlow: "column",
-			gap: 0,
-			border: "1px solid #222"
-		})}
-	>
+	<div class="grid auto-cols-fr grid-flow-col">
 		{#each clues as fill, idx}
 			<div
-				class={square({
-					size: "50px",
-					bgColor: "white",
-					_active: { bgColor: "green" },
-					borderLeft: idx === 0 ? undefined : "1px solid #222"
-				})}
+				class={clsx(
+					"h-12 w-12 border-y border-r border-primary",
+					fill ? "bg-emerald-600" : undefined,
+					idx === 0 ? "border-l" : undefined
+				)}
 				data-active={fill ? "" : undefined}
 			></div>
 		{/each}
