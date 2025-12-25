@@ -35,7 +35,7 @@
 <main>
 	<div class="mt-20 flex flex-col items-center gap-6">
 		<h1 class="text-4xl font-bold">Nonogram Helper</h1>
-		<div class="w-full max-w-xs overflow-scroll p-2">
+		<div class="w-full max-w-xs p-2">
 			<form
 				onsubmit={(e) => {
 					e.preventDefault();
@@ -99,7 +99,7 @@
 				</Field.Set>
 			</form>
 		</div>
-		<div class="mt-6 flex max-w-full flex-col gap-y-4 overflow-scroll p-4">
+		<div class="mt-6 flex max-w-full flex-col gap-y-4 p-4 overflow-x-auto">
 			<Row clues={leftClues} lowOpacity={!isApplied} />
 			<Row clues={filledClues} lowOpacity={!isApplied} />
 		</div>
