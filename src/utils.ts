@@ -7,34 +7,26 @@ export const calcFillClues = (clues: number[], rowLen: number): boolean[] => {
 
 	const total = Number.sumAll(clues) + clues.length - 1;
 
-	const diff = rowLen - total;
+	const extra = rowLen - total;
 
-	if (diff < 0) {
+	if (extra < 0) {
 		return [];
 	}
 
-	let index = 0;
-	const list = [];
-	for (const clue of clues) {
-		const start = index;
-		const end = index + clue - 1;
-
-		if (start + diff <= end) {
-			list.push({ start: start + diff, end: end });
-		}
-
-		index += clue + 1;
-	}
-
 	const res = Array.makeBy(rowLen, () => false);
+	let pos = 0;
+	
+	for (const clue of clues) {
+		const start = pos + extra;
+		const end = pos + clue - 1;
 
-	for (const item of list) {
-		for (let i = item.start; i <= item.end; i++) {
+		for (let i = start; i <= end; i++) {
 			res[i] = true;
 		}
+
+		pos += clue + 1;
 	}
 
-	console.log(res);
 	return res;
 };
 
