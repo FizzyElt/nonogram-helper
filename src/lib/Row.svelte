@@ -10,7 +10,7 @@
 
 {#if clues.length > 0}
 	<div class={clsx("flex w-fit", lowOpacity ? "opacity-40" : undefined)}>
-		{#each clues as fill, idx}
+		{#each clues as fill, idx (idx)}
 			<div
 				class={clsx(
 					"h-12 w-12 border-y border-r border-primary",
