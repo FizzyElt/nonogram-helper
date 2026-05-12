@@ -1,45 +1,50 @@
-import { onMount } from "svelte";
-import { Option, pipe } from "effect";
 import {
-	addHistoryItem,
-	loadHistory,
-	saveHistory,
-	toHistoryItem,
-	type HistoryItem,
-	type FormValue
+    addHistoryItem,
+    loadHistory,
+    saveHistory,
+    toHistoryItem,
+    type HistoryItem,
+    type FormValue,
 } from "$lib/history";
+import { Option, pipe } from "effect";
+import { onMount } from "svelte";
 
-export const createHistoryState = () => {
-	let items = $state<HistoryItem[]>([]);
-	let isReady = $state(false);
+interface CreateHistoryStateReturn {
+    add: (item: FormValue) => void;
+    items: HistoryItem[];
+}
 
-	const add = (item: FormValue) => {
-		pipe(
-			toHistoryItem(item),
-			Option.match({
-				onNone: () => undefined,
-				onSome: (historyItem) => {
-					items = addHistoryItem(items, historyItem);
-				}
-			})
-		);
-	};
+export const createHistoryState = (): CreateHistoryStateReturn => {
+    let items = $state<HistoryItem[]>([]);
+    let isReady = $state(false);
 
-	onMount(() => {
-		items = loadHistory();
-		isReady = true;
-	});
+    const add = (item: FormValue) => {
+        pipe(
+            toHistoryItem(item),
+            Option.match({
+                onNone: () => undefined,
+                onSome: (historyItem) => {
+                    items = addHistoryItem(items, historyItem);
+                },
+            }),
+        );
+    };
 
-	$effect(() => {
-		if (isReady) {
-			saveHistory(items);
-		}
-	});
+    onMount(() => {
+        items = loadHistory();
+        isReady = true;
+    });
 
-	return {
-		add,
-		get items() {
-			return items;
-		}
-	};
+    $effect(() => {
+        if (isReady) {
+            saveHistory(items);
+        }
+    });
+
+    return {
+        add,
+        get items(): HistoryItem[] {
+            return items;
+        },
+    };
 };
