@@ -18,8 +18,9 @@
         "moduleDetection": "force",
         "paths": {
             "$lib": ["./src/lib"],
-            "$lib/*": ["./src/lib/*"]
+            "$lib/*": ["./src/lib/*"],
+            "$styled-system/*": ["./styled-system/*"]
         }
     },
-    "include": ["src/**/*.ts", "src/**/*.js", "src/**/*.svelte"]
+    "include": ["src/**/*.ts", "src/**/*.js", "src/**/*.svelte", "styled-system"]
 }
