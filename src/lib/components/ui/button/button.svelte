@@ -3,15 +3,18 @@
 
     import { buttonStyle, type ButtonVariants } from "./style";
 
-    export interface ButtonProps extends HTMLButtonAttributes, Partial<ButtonVariants> {}
+    export interface ButtonProps extends HTMLButtonAttributes, Partial<ButtonVariants> {
+        ref?: HTMLButtonElement | null;
+    }
 </script>
 
 <script lang="ts">
     let {
         class: className,
+        ref = $bindable(null),
         type = "button",
-        size = "xl",
-        visual = "solid",
+        size = "md",
+        variant = "solid",
         disabled,
         children,
         ...restProps
@@ -20,10 +23,11 @@
 
 <button
     data-slot="button"
+    bind:this={ref}
     {type}
     {disabled}
     {...restProps}
-    class={[buttonStyle({ size, visual }), className]}
+    class={[buttonStyle({ size, variant }), className]}
 >
     {@render children?.()}
 </button>
