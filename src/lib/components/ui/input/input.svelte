@@ -1,9 +1,9 @@
 <script lang="ts" module>
     import type { HTMLInputAttributes } from "svelte/elements";
 
-    import { inputStyle, type InputVariants } from "./style";
+    import { input as inputRecipe, type InputVariantProps } from "$styled-system/recipes";
 
-    export interface InputProps extends Omit<HTMLInputAttributes, "size">, Partial<InputVariants> {
+    export interface InputProps extends Omit<HTMLInputAttributes, "size">, InputVariantProps {
         ref?: HTMLInputElement | null;
     }
 </script>
@@ -13,14 +13,9 @@
         ref = $bindable(null),
         value = $bindable(),
         class: className,
-        size = "md",
+        size,
         ...restProps
     }: InputProps = $props();
 </script>
 
-<input
-    bind:this={ref}
-    bind:value
-    {...restProps}
-    class={[inputStyle({ variant: "outline", size: size }), className]}
-/>
+<input bind:this={ref} bind:value {...restProps} class={[inputRecipe({ size: size }), className]} />

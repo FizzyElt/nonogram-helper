@@ -1,13 +1,14 @@
-import { cva, type RecipeVariant } from "$styled-system/css";
+import { defineRecipe } from "@pandacss/dev";
 
-export const inputStyle = cva({
+export const inputRecipe = defineRecipe({
+    className: "input",
+    staticCss: ["*"],
     base: {
         width: "100%",
         minWidth: "0",
         outline: "0",
         position: "relative",
         appearance: "none",
-        textAlign: "start",
         borderRadius: "sm",
         _disabled: {
             cursor: "not-allowed",
@@ -70,6 +71,9 @@ export const inputStyle = cva({
             },
         },
     },
-});
 
-export type InputVariants = RecipeVariant<typeof inputStyle>;
+    defaultVariants: {
+        variant: "outline",
+        size: "md",
+    },
+});

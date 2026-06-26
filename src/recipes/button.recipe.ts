@@ -1,6 +1,8 @@
-import { cva, type RecipeVariant } from "$styled-system/css";
+import { defineRecipe } from "@pandacss/dev";
 
-export const buttonStyle = cva({
+export const buttonRecipe = defineRecipe({
+    className: "button",
+    staticCss: ["*"],
     base: {
         display: "inline-flex",
         appearance: "none",
@@ -97,6 +99,8 @@ export const buttonStyle = cva({
             },
         },
     },
+    defaultVariants: {
+        variant: "solid",
+        size: "md",
+    },
 });
-
-export type ButtonVariants = RecipeVariant<typeof buttonStyle>;
